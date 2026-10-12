@@ -1,7 +1,0 @@
-Flask==2.3.2
-Pillow==9.5.0
-requests==2.31.0
-deep-translator==1.11.4
-arabic-reshaper==3.0.0
-python-bidi==0.4.2
-gunicorn==20.1.0
