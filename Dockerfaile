@@ -1,0 +1,18 @@
+FROM python:3.9-slim
+
+# دابەزاندنی بەرنامەی خوێندنەوەی دەق
+RUN apt-get update && apt-get install -y tesseract-ocr tesseract-ocr-eng fontconfig
+
+# ڕێکخستنی شوێنی کارکردن
+WORKDIR /app
+
+# دابەزاندنی کتێبخانەکانی پایتۆن
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# گواستنەوەی کۆدەکان بۆ ناو سێرڤەرەکە
+COPY . .
+
+# خستنەکاری وێبسایتەکە
+EXPOSE 8080
+CMD ["gunicorn", "-b", "0.0.0.0:8080", "app:app", "--timeout", "120"]
