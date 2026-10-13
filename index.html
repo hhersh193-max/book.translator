@@ -4,76 +4,130 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>وەرگێڕی ژیر</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body { font-family: 'Tahoma', sans-serif; background-color: #f0f7fa; margin: 0; padding: 20px; display: flex; justify-content: center; }
-        .container { background-color: white; width: 100%; max-width: 400px; border-radius: 30px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); padding: 20px; box-sizing: border-box; }
-        h1 { text-align: center; color: #1e6091; font-size: 24px; margin-bottom: 20px; }
+        body { font-family: 'Tahoma', sans-serif; background-color: #f4f9fc; margin: 0; display: flex; justify-content: center; min-height: 100vh; align-items: center; }
+        .container { background-color: white; width: 100%; max-width: 400px; min-height: 80vh; border-radius: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); padding: 30px 20px; box-sizing: border-box; position: relative; overflow: hidden; }
         
-        /* شێوازی تابی بەشەکان */
-        .tabs { display: flex; background-color: #e0f2fe; border-radius: 30px; padding: 5px; margin-bottom: 20px; }
-        .tab-btn { flex: 1; background: none; border: none; padding: 10px; font-family: inherit; font-size: 15px; font-weight: bold; color: #1e6091; cursor: pointer; border-radius: 25px; transition: 0.3s; }
-        .tab-btn.active { background-color: #1e6091; color: white; }
+        /* نەخشی پشتەوەی لاپەڕە */
+        .wave { position: absolute; opacity: 0.5; }
+        .wave1 { top: 20px; left: -10px; width: 50px; }
+        .wave2 { bottom: 30px; right: 10px; width: 60px; }
+        
+        /* سەردێڕ */
+        .header { display: flex; justify-content: center; align-items: center; margin-bottom: 30px; }
+        .header h1 { color: #1e4b6d; font-size: 26px; margin: 0; font-weight: bold; }
+        .header img { width: 35px; margin-right: 10px; }
+        .theme-icon { position: absolute; left: 25px; top: 35px; font-size: 20px; color: #1e4b6d; cursor: pointer; }
+
+        /* تابی بەشەکان */
+        .tabs { display: flex; justify-content: space-between; gap: 10px; margin-bottom: 30px; }
+        .tab-btn { flex: 1; background-color: white; border: 1px solid #82b1c4; padding: 12px 0; font-family: inherit; font-size: 16px; font-weight: bold; color: #1e4b6d; cursor: pointer; border-radius: 25px; transition: 0.3s; display: flex; justify-content: center; align-items: center; gap: 5px; }
+        .tab-btn.active { background-color: #1e74a8; color: white; border: none; box-shadow: 0 4px 10px rgba(30,116,168,0.4); }
         .tab-content { display: none; }
         .tab-content.active { display: block; }
 
-        /* شێوازی بۆکسەکان */
-        .box { border: 2px dashed #7dd3fc; border-radius: 20px; padding: 30px 20px; text-align: center; margin-bottom: 15px; background-color: #fafdfc; position: relative; }
+        /* بۆکسی ناوەڕاست */
+        .box { border: 2px dashed #82b1c4; border-radius: 20px; padding: 40px 20px; text-align: center; margin-bottom: 20px; position: relative; background-color: white; transition: 0.3s; }
+        .box:hover { background-color: #f4f9fc; }
         .box input[type="file"] { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
-        textarea { width: 100%; box-sizing: border-box; border: 1px solid #bae6fd; border-radius: 15px; padding: 15px; font-family: inherit; font-size: 15px; min-height: 120px; resize: vertical; margin-bottom: 15px; }
-        
-        /* دوگمەی سەرەکی */
-        .main-btn { width: 100%; background-color: #1e6091; color: white; border: none; padding: 15px; font-family: inherit; font-size: 16px; font-weight: bold; border-radius: 15px; cursor: pointer; box-shadow: 0 4px 10px rgba(30,96,145,0.3); }
+        .upload-icon { font-size: 40px; color: #1e4b6d; margin-bottom: 15px; }
+        .box-text { color: #1e4b6d; font-size: 18px; font-weight: bold; }
+
+        /* بەشی نووسین */
+        textarea { width: 100%; box-sizing: border-box; border: 1px solid #1e4b6d; border-radius: 15px; padding: 20px; font-family: inherit; font-size: 18px; min-height: 120px; resize: none; text-align: center; color: #1e4b6d; }
+        textarea::placeholder { color: #1e4b6d; opacity: 0.7; }
+        .text-label { text-align: center; color: #1e4b6d; font-weight: bold; margin-top: 10px; font-size: 16px; }
+        .arrow { text-align: center; color: #1e4b6d; font-size: 24px; margin: 10px 0; }
+        .text-result-box { background-color: #1e4b6d; color: white; border-radius: 15px; padding: 20px; text-align: center; font-size: 18px; font-weight: bold; min-height: 80px; display: flex; align-items: center; justify-content: center; }
+
+        /* دوگمەی سەرەکی خوارەوە */
+        .main-btn { width: 100%; background-color: #1e74a8; color: white; border: none; padding: 18px; font-family: inherit; font-size: 18px; font-weight: bold; border-radius: 20px; cursor: pointer; box-shadow: 0 5px 15px rgba(30,116,168,0.4); margin-top: 20px; display: flex; justify-content: center; align-items: center; gap: 10px; }
         .main-btn:disabled { background-color: #93c5fd; cursor: not-allowed; }
         
-        .arrow { text-align: center; color: #1e6091; font-size: 24px; margin: -5px 0 10px 0; }
-        .result-text { border: 1px solid #bae6fd; background-color: #f0f7fa; padding: 15px; border-radius: 15px; min-height: 100px; text-align: right; margin-top: 15px; white-space: pre-wrap; display: none;}
+        #result-container { display: none; margin-top: 20px; text-align: center; }
+        #result-text { border: 1px solid #82b1c4; background-color: #f4f9fc; padding: 15px; border-radius: 15px; text-align: right; white-space: pre-wrap; font-size: 16px; color: #1e4b6d; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>🤖 وەرگێڕی ژیر</h1>
+    <i class="fas fa-moon theme-icon"></i>
     
+    <div class="header">
+        <h1>وەرگێڕی ژیر</h1>
+        <!-- دەتوانیت لۆگۆیەک لێرە دابنێیت ئەگەر هەتبوو -->
+        <i class="fas fa-language" style="font-size: 28px; color: #1e74a8; margin-right: 10px;"></i>
+    </div>
+    
+    <!-- تابی بەشەکان -->
     <div class="tabs">
-        <button class="tab-btn active" onclick="showTab('image-tab', this)">📷 وێنە</button>
-        <button class="tab-btn" onclick="showTab('file-tab', this)">📄 فایل</button>
-        <button class="tab-btn" onclick="showTab('text-tab', this)">✏️ نووسین</button>
+        <button class="tab-btn" onclick="showTab('text-tab', this)">
+            <span>نووسین</span> <i class="fas fa-pen"></i>
+        </button>
+        <button class="tab-btn" onclick="showTab('file-tab', this)">
+            <span>فایل</span> <i class="fas fa-file-alt"></i>
+        </button>
+        <button class="tab-btn active" onclick="showTab('image-tab', this)">
+            <span>وێنە</span> <i class="fas fa-camera"></i>
+        </button>
     </div>
 
-    <!-- بەشی وێنە -->
+    <!-- بەشی وێنە (بەشێوەی بنەڕەتی کراوەیە) -->
     <div id="image-tab" class="tab-content active">
         <div class="box">
-            <span style="font-size: 30px;">📤</span><br><br>
-            <span id="img-name">وێنەکە لێرە دابنێ یان هەڵیبژێرە</span>
-            <input type="file" id="image-input" accept="image/*" onchange="document.getElementById('img-name').innerText = this.files[0].name">
+            <i class="fas fa-upload upload-icon"></i>
+            <div class="box-text" id="img-name">وێنەکە لێرە دابنێ یان<br>کامێرا بکەرەوە</div>
+            <input type="file" id="image-input" accept="image/*" onchange="document.getElementById('img-name').innerText = 'وێنەکە هەڵبژێردرا'">
         </div>
-        <button class="main-btn" id="img-btn" onclick="translateImage()">وێنەی وەرگێڕدراو بۆ کوردی</button>
-        <div class="result-text" id="img-result"></div>
+        
+        <!-- ئەمە ئەو شوێنەیە کە وەرگێڕانەکەی تێدا دەردەکەوێت ئەگەر سەرکەوتوو بوو -->
+        <div id="img-result-container" style="display: none; margin-bottom: 20px;">
+            <div id="img-result" style="background-color: #f4f9fc; border: 1px solid #82b1c4; border-radius: 15px; padding: 15px; text-align: right; color: #1e4b6d; min-height: 80px;"></div>
+        </div>
+
+        <button class="main-btn" id="img-btn" onclick="translateImage()">
+            وێنەی وەرگێڕدراو بۆ کوردی
+        </button>
     </div>
 
     <!-- بەشی فایل -->
     <div id="file-tab" class="tab-content">
-        <div class="box">
-            <span style="font-size: 30px;">📄</span><br><br>
-            <span id="file-name">ئەو فایلەی دیاری کراوە (.txt)</span>
+        <div class="box" style="border-style: solid;">
+            <i class="fas fa-file-pdf" style="font-size: 30px; color: #475569; margin-bottom: 10px;"></i>
+            <div class="box-text" id="file-name" style="font-size: 16px; color: black;">ئەو فایلەی دیاری کراوە</div>
             <input type="file" id="file-input" accept=".txt" onchange="document.getElementById('file-name').innerText = this.files[0].name">
         </div>
-        <div class="arrow">↓</div>
-        <button class="main-btn" id="file-btn" onclick="translateFile()">داگرتنی فایلی وەرگێڕدراو</button>
-        <div class="result-text" id="file-result"></div>
+        <div class="arrow"><i class="fas fa-arrow-down"></i></div>
+        <div class="box" style="border-style: solid; background-color: #f0fdf4; border-color: #86efac;">
+            <i class="fas fa-file-alt" style="font-size: 30px; color: #22c55e; margin-bottom: 10px;"></i>
+            <div class="box-text" id="file-status" style="font-size: 16px; color: black;">ئەو فایلەی وەردەگێڕدرێت</div>
+        </div>
+        <button class="main-btn" id="file-btn" onclick="translateFile()">
+            <i class="fas fa-download"></i> داگرتنی فایلی وەرگێڕدراو
+        </button>
     </div>
 
     <!-- بەشی نووسین -->
     <div id="text-tab" class="tab-content">
-        <textarea id="text-input" placeholder="Write English text here..."></textarea>
-        <div class="arrow">↓</div>
-        <textarea id="text-output" placeholder="دەقی کوردی لێرە دەردەکەوێت" readonly></textarea>
-        <button class="main-btn" id="text-btn" onclick="translateText()">وەرگێڕان بۆ کوردی</button>
+        <textarea id="text-input" placeholder="Write english text here" dir="ltr"></textarea>
+        <div class="text-label">دەقی ئینگلیزی</div>
+        
+        <div class="arrow"><i class="fas fa-arrow-down"></i></div>
+        
+        <div class="text-result-box" id="text-output">
+            دەقی کوردی لێرە دەردەکەوێت
+        </div>
+        <div class="text-label">دەقی کوردی</div>
+        
+        <button class="main-btn" id="text-btn" onclick="translateText()">
+            <i class="fas fa-language"></i> وەرگێڕان بۆ کوردی
+        </button>
     </div>
 </div>
 
 <script>
-    // === کلیلەکەت لێرە دابنێ لەنێوان دوو کەوانەکە ===
+    // کلیلەکەت ڕاستەوخۆ دانراوە
     const API_KEY = "AQ.Ab8RN6IJ-evaYBvfXlJbzCR9aHDOxLyekxqgXnb6N4qyUZtxvw";
     const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
 
@@ -109,33 +163,39 @@
         const output = document.getElementById("text-output");
         
         if (!text.trim()) return;
-        btn.innerText = "خەریکی وەرگێڕانە..."; btn.disabled = true;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> خەریکی وەرگێڕانە...'; 
+        btn.disabled = true;
         
         try {
-            output.value = await callGemini(`Translate this to Sorani Kurdish. Only return the translation:\n\n${text}`);
-        } catch (e) { output.value = "هەڵەیەک ڕوویدا لە کاتی وەرگێڕان."; }
+            output.innerText = await callGemini(`Translate this to Sorani Kurdish. Only return the translation:\n\n${text}`);
+        } catch (e) { output.innerText = "هەڵەیەک ڕوویدا"; }
         
-        btn.innerText = "وەرگێڕان بۆ کوردی"; btn.disabled = false;
+        btn.innerHTML = '<i class="fas fa-language"></i> وەرگێڕان بۆ کوردی'; 
+        btn.disabled = false;
     }
 
     // وەرگێڕانی وێنە
     async function translateImage() {
         const fileInput = document.getElementById('image-input');
         const btn = document.getElementById('img-btn');
+        const outputContainer = document.getElementById('img-result-container');
         const output = document.getElementById('img-result');
         
         if (!fileInput.files[0]) { alert("تکایە سەرەتا وێنەیەک هەڵبژێرە"); return; }
         
-        btn.innerText = "خەریکی خوێندنەوە و وەرگێڕانە..."; btn.disabled = true;
-        output.style.display = "block"; output.innerText = "...";
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> چاوەڕێ بکە...'; 
+        btn.disabled = true;
+        outputContainer.style.display = "block"; 
+        output.innerText = "خەریکی خوێندنەوەی وێنەکەیە...";
 
         const reader = new FileReader();
         reader.onload = async function() {
             try {
                 const prompt = "Extract all text from this image and translate it to Sorani Kurdish. Only return the translation.";
                 output.innerText = await callGemini(prompt, reader.result, fileInput.files[0].type);
-            } catch (e) { output.innerText = "هەڵەیەک ڕوویدا. دڵنیابە کلیلەکەت ڕاستە."; }
-            btn.innerText = "وێنەی وەرگێڕدراو بۆ کوردی"; btn.disabled = false;
+            } catch (e) { output.innerText = "هەڵەیەک ڕوویدا. دڵنیابە کلیلەکەت دروستە."; }
+            btn.innerHTML = 'وێنەی وەرگێڕدراو بۆ کوردی'; 
+            btn.disabled = false;
         };
         reader.readAsDataURL(fileInput.files[0]);
     }
@@ -144,12 +204,12 @@
     async function translateFile() {
         const fileInput = document.getElementById('file-input');
         const btn = document.getElementById('file-btn');
-        const output = document.getElementById('file-result');
+        const status = document.getElementById('file-status');
         
         if (!fileInput.files[0]) { alert("تکایە فایلی .txt هەڵبژێرە"); return; }
         
-        btn.innerText = "خەریکی وەرگێڕانە..."; btn.disabled = true;
-        output.style.display = "block"; output.innerText = "...";
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> چاوەڕێ بکە...'; 
+        btn.disabled = true;
 
         const reader = new FileReader();
         reader.onload = async function(e) {
@@ -157,16 +217,16 @@
                 const content = e.target.result;
                 const translated = await callGemini(`Translate this file content to Sorani Kurdish:\n\n${content}`);
                 
-                output.innerText = "وەرگێڕانەکە تەواو بوو. فایلەکە دادەبەزێت...";
+                status.innerText = "وەرگێڕدرا! دادەبەزێت...";
                 
-                // دروستکردنی فایلی نوێ بۆ داگرتن
                 const blob = new Blob([translated], { type: "text/plain;charset=utf-8" });
                 const link = document.createElement("a");
                 link.href = URL.createObjectURL(blob);
                 link.download = "Kurdish_" + fileInput.files[0].name;
                 link.click();
-            } catch (err) { output.innerText = "هەڵەیەک ڕوویدا."; }
-            btn.innerText = "داگرتنی فایلی وەرگێڕدراو"; btn.disabled = false;
+            } catch (err) { status.innerText = "هەڵەیەک ڕوویدا"; }
+            btn.innerHTML = '<i class="fas fa-download"></i> داگرتنی فایلی وەرگێڕدراو'; 
+            btn.disabled = false;
         };
         reader.readAsText(fileInput.files[0]);
     }
