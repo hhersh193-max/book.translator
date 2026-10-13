@@ -6,36 +6,36 @@
     <title>وەرگێڕی ژیر</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body { font-family: 'Tahoma', sans-serif; background-color: #f4f9fc; margin: 0; display: flex; justify-content: center; min-height: 100vh; align-items: center; }
-        .container { background-color: white; width: 100%; max-width: 400px; min-height: 80vh; border-radius: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); padding: 30px 20px; box-sizing: border-box; position: relative; overflow: hidden; }
+        body { font-family: 'Tahoma', sans-serif; background-color: #fff7ed; margin: 0; display: flex; justify-content: center; min-height: 100vh; align-items: center; }
+        .container { background-color: white; width: 100%; max-width: 400px; min-height: 80vh; border-radius: 40px; box-shadow: 0 10px 30px rgba(234, 88, 12, 0.1); padding: 30px 20px; box-sizing: border-box; position: relative; overflow: hidden; }
         
         .header { display: flex; justify-content: center; align-items: center; margin-bottom: 30px; }
-        .header h1 { color: #1e4b6d; font-size: 26px; margin: 0; font-weight: bold; }
-        .theme-icon { position: absolute; left: 25px; top: 35px; font-size: 20px; color: #1e4b6d; cursor: pointer; }
+        .header h1 { color: #9a3412; font-size: 26px; margin: 0; font-weight: bold; }
+        .theme-icon { position: absolute; left: 25px; top: 35px; font-size: 20px; color: #9a3412; cursor: pointer; }
 
         .tabs { display: flex; justify-content: space-between; gap: 10px; margin-bottom: 30px; }
-        .tab-btn { flex: 1; background-color: white; border: 1px solid #82b1c4; padding: 12px 0; font-family: inherit; font-size: 16px; font-weight: bold; color: #1e4b6d; cursor: pointer; border-radius: 25px; transition: 0.3s; display: flex; justify-content: center; align-items: center; gap: 5px; }
-        .tab-btn.active { background-color: #1e74a8; color: white; border: none; box-shadow: 0 4px 10px rgba(30,116,168,0.4); }
+        .tab-btn { flex: 1; background-color: white; border: 1px solid #fdba74; padding: 12px 0; font-family: inherit; font-size: 16px; font-weight: bold; color: #9a3412; cursor: pointer; border-radius: 25px; transition: 0.3s; display: flex; justify-content: center; align-items: center; gap: 5px; }
+        .tab-btn.active { background-color: #f97316; color: white; border: none; box-shadow: 0 4px 10px rgba(249, 115, 22, 0.4); }
         .tab-content { display: none; }
         .tab-content.active { display: block; }
 
-        .box { border: 2px dashed #82b1c4; border-radius: 20px; padding: 40px 20px; text-align: center; margin-bottom: 20px; position: relative; background-color: white; transition: 0.3s; }
-        .box:hover { background-color: #f4f9fc; }
+        .box { border: 2px dashed #fdba74; border-radius: 20px; padding: 40px 20px; text-align: center; margin-bottom: 20px; position: relative; background-color: white; transition: 0.3s; }
+        .box:hover { background-color: #fff7ed; }
         .box input[type="file"] { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
-        .upload-icon { font-size: 40px; color: #1e4b6d; margin-bottom: 15px; }
-        .box-text { color: #1e4b6d; font-size: 18px; font-weight: bold; }
+        .upload-icon { font-size: 40px; color: #f97316; margin-bottom: 15px; }
+        .box-text { color: #9a3412; font-size: 18px; font-weight: bold; }
 
-        textarea { width: 100%; box-sizing: border-box; border: 1px solid #1e4b6d; border-radius: 15px; padding: 20px; font-family: inherit; font-size: 18px; min-height: 120px; resize: none; text-align: center; color: #1e4b6d; }
-        textarea::placeholder { color: #1e4b6d; opacity: 0.7; }
-        .text-label { text-align: center; color: #1e4b6d; font-weight: bold; margin-top: 10px; font-size: 16px; }
-        .arrow { text-align: center; color: #1e4b6d; font-size: 24px; margin: 10px 0; }
-        .text-result-box { background-color: #1e4b6d; color: white; border-radius: 15px; padding: 20px; text-align: center; font-size: 18px; font-weight: bold; min-height: 80px; display: flex; align-items: center; justify-content: center; }
+        textarea { width: 100%; box-sizing: border-box; border: 1px solid #fdba74; border-radius: 15px; padding: 20px; font-family: inherit; font-size: 18px; min-height: 120px; resize: none; text-align: center; color: #9a3412; }
+        textarea::placeholder { color: #9a3412; opacity: 0.6; }
+        .text-label { text-align: center; color: #9a3412; font-weight: bold; margin-top: 10px; font-size: 16px; }
+        .arrow { text-align: center; color: #f97316; font-size: 24px; margin: 10px 0; }
+        .text-result-box { background-color: #f97316; color: white; border-radius: 15px; padding: 20px; text-align: center; font-size: 18px; font-weight: bold; min-height: 80px; display: flex; align-items: center; justify-content: center; }
 
-        .main-btn { width: 100%; background-color: #1e74a8; color: white; border: none; padding: 18px; font-family: inherit; font-size: 18px; font-weight: bold; border-radius: 20px; cursor: pointer; box-shadow: 0 5px 15px rgba(30,116,168,0.4); margin-top: 20px; display: flex; justify-content: center; align-items: center; gap: 10px; }
-        .main-btn:disabled { background-color: #93c5fd; cursor: not-allowed; }
+        .main-btn { width: 100%; background-color: #f97316; color: white; border: none; padding: 18px; font-family: inherit; font-size: 18px; font-weight: bold; border-radius: 20px; cursor: pointer; box-shadow: 0 5px 15px rgba(249, 115, 22, 0.4); margin-top: 20px; display: flex; justify-content: center; align-items: center; gap: 10px; }
+        .main-btn:disabled { background-color: #fdba74; cursor: not-allowed; }
         
         #img-result-container { display: none; margin-bottom: 20px; }
-        #img-result { background-color: #f4f9fc; border: 1px solid #82b1c4; border-radius: 15px; padding: 15px; text-align: right; color: #1e4b6d; min-height: 80px; }
+        #img-result { background-color: #fff7ed; border: 1px solid #fdba74; border-radius: 15px; padding: 15px; text-align: right; color: #9a3412; min-height: 80px; }
     </style>
 </head>
 <body>
@@ -45,7 +45,7 @@
     
     <div class="header">
         <h1>وەرگێڕی ژیر</h1>
-        <i class="fas fa-language" style="font-size: 28px; color: #1e74a8; margin-right: 10px;"></i>
+        <i class="fas fa-language" style="font-size: 28px; color: #f97316; margin-right: 10px;"></i>
     </div>
     
     <!-- تابی بەشەکان -->
@@ -81,14 +81,14 @@
     <!-- بەشی فایل -->
     <div id="file-tab" class="tab-content">
         <div class="box" style="border-style: solid;">
-            <i class="fas fa-file-pdf" style="font-size: 30px; color: #475569; margin-bottom: 10px;"></i>
-            <div class="box-text" id="file-name" style="font-size: 16px; color: black;">ئەو فایلەی دیاری کراوە</div>
+            <i class="fas fa-file-pdf" style="font-size: 30px; color: #9a3412; margin-bottom: 10px;"></i>
+            <div class="box-text" id="file-name" style="font-size: 16px; color: #9a3412;">ئەو فایلەی دیاری کراوە</div>
             <input type="file" id="file-input" accept=".txt" onchange="document.getElementById('file-name').innerText = this.files[0].name">
         </div>
         <div class="arrow"><i class="fas fa-arrow-down"></i></div>
-        <div class="box" style="border-style: solid; background-color: #f0fdf4; border-color: #86efac;">
-            <i class="fas fa-file-alt" style="font-size: 30px; color: #22c55e; margin-bottom: 10px;"></i>
-            <div class="box-text" id="file-status" style="font-size: 16px; color: black;">ئەو فایلەی وەردەگێڕدرێت</div>
+        <div class="box" style="border-style: solid; background-color: #fff7ed; border-color: #f97316;">
+            <i class="fas fa-file-alt" style="font-size: 30px; color: #f97316; margin-bottom: 10px;"></i>
+            <div class="box-text" id="file-status" style="font-size: 16px; color: #9a3412;">ئەو فایلەی وەردەگێڕدرێت</div>
         </div>
         <button class="main-btn" id="file-btn" onclick="translateFile()">
             <i class="fas fa-download"></i> داگرتنی فایلی وەرگێڕدراو
@@ -114,9 +114,8 @@
 </div>
 
 <script>
-    // لێرەدا کلیلەکەم کردووە بە دوو بەشەوە بۆ ئەوەی گۆگڵ نەیڕەشێنێتەوە
+    // کلیلەکە بە پارچەکراوی ماوەتەوە بۆ پاراستنی لە گۆگڵ
     const API_KEY = "AQ.Ab8RN6IIcOH4zbrWESl9Vz" + "FAQUTC993g7fqpXnr6VO5u-6PCFw";
-    // بەکارهێنانی جێگیرترین مۆدێل بۆ ئەوەی کێشەی نەبێت
     const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro-latest:generateContent?key=${API_KEY}`;
 
     function showTab(tabId, element) {
@@ -144,7 +143,6 @@
         return data.candidates[0].content.parts[0].text;
     }
 
-    // وەرگێڕانی نووسین
     async function translateText() {
         const text = document.getElementById("text-input").value;
         const btn = document.getElementById("text-btn");
@@ -162,7 +160,6 @@
         btn.disabled = false;
     }
 
-    // وەرگێڕانی وێنە
     async function translateImage() {
         const fileInput = document.getElementById('image-input');
         const btn = document.getElementById('img-btn');
@@ -188,7 +185,6 @@
         reader.readAsDataURL(fileInput.files[0]);
     }
 
-    // وەرگێڕانی فایل
     async function translateFile() {
         const fileInput = document.getElementById('file-input');
         const btn = document.getElementById('file-btn');
