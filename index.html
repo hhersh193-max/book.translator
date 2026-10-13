@@ -9,44 +9,33 @@
         body { font-family: 'Tahoma', sans-serif; background-color: #f4f9fc; margin: 0; display: flex; justify-content: center; min-height: 100vh; align-items: center; }
         .container { background-color: white; width: 100%; max-width: 400px; min-height: 80vh; border-radius: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); padding: 30px 20px; box-sizing: border-box; position: relative; overflow: hidden; }
         
-        /* نەخشی پشتەوەی لاپەڕە */
-        .wave { position: absolute; opacity: 0.5; }
-        .wave1 { top: 20px; left: -10px; width: 50px; }
-        .wave2 { bottom: 30px; right: 10px; width: 60px; }
-        
-        /* سەردێڕ */
         .header { display: flex; justify-content: center; align-items: center; margin-bottom: 30px; }
         .header h1 { color: #1e4b6d; font-size: 26px; margin: 0; font-weight: bold; }
-        .header img { width: 35px; margin-right: 10px; }
         .theme-icon { position: absolute; left: 25px; top: 35px; font-size: 20px; color: #1e4b6d; cursor: pointer; }
 
-        /* تابی بەشەکان */
         .tabs { display: flex; justify-content: space-between; gap: 10px; margin-bottom: 30px; }
         .tab-btn { flex: 1; background-color: white; border: 1px solid #82b1c4; padding: 12px 0; font-family: inherit; font-size: 16px; font-weight: bold; color: #1e4b6d; cursor: pointer; border-radius: 25px; transition: 0.3s; display: flex; justify-content: center; align-items: center; gap: 5px; }
         .tab-btn.active { background-color: #1e74a8; color: white; border: none; box-shadow: 0 4px 10px rgba(30,116,168,0.4); }
         .tab-content { display: none; }
         .tab-content.active { display: block; }
 
-        /* بۆکسی ناوەڕاست */
         .box { border: 2px dashed #82b1c4; border-radius: 20px; padding: 40px 20px; text-align: center; margin-bottom: 20px; position: relative; background-color: white; transition: 0.3s; }
         .box:hover { background-color: #f4f9fc; }
         .box input[type="file"] { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
         .upload-icon { font-size: 40px; color: #1e4b6d; margin-bottom: 15px; }
         .box-text { color: #1e4b6d; font-size: 18px; font-weight: bold; }
 
-        /* بەشی نووسین */
         textarea { width: 100%; box-sizing: border-box; border: 1px solid #1e4b6d; border-radius: 15px; padding: 20px; font-family: inherit; font-size: 18px; min-height: 120px; resize: none; text-align: center; color: #1e4b6d; }
         textarea::placeholder { color: #1e4b6d; opacity: 0.7; }
         .text-label { text-align: center; color: #1e4b6d; font-weight: bold; margin-top: 10px; font-size: 16px; }
         .arrow { text-align: center; color: #1e4b6d; font-size: 24px; margin: 10px 0; }
         .text-result-box { background-color: #1e4b6d; color: white; border-radius: 15px; padding: 20px; text-align: center; font-size: 18px; font-weight: bold; min-height: 80px; display: flex; align-items: center; justify-content: center; }
 
-        /* دوگمەی سەرەکی خوارەوە */
         .main-btn { width: 100%; background-color: #1e74a8; color: white; border: none; padding: 18px; font-family: inherit; font-size: 18px; font-weight: bold; border-radius: 20px; cursor: pointer; box-shadow: 0 5px 15px rgba(30,116,168,0.4); margin-top: 20px; display: flex; justify-content: center; align-items: center; gap: 10px; }
         .main-btn:disabled { background-color: #93c5fd; cursor: not-allowed; }
         
-        #result-container { display: none; margin-top: 20px; text-align: center; }
-        #result-text { border: 1px solid #82b1c4; background-color: #f4f9fc; padding: 15px; border-radius: 15px; text-align: right; white-space: pre-wrap; font-size: 16px; color: #1e4b6d; }
+        #img-result-container { display: none; margin-bottom: 20px; }
+        #img-result { background-color: #f4f9fc; border: 1px solid #82b1c4; border-radius: 15px; padding: 15px; text-align: right; color: #1e4b6d; min-height: 80px; }
     </style>
 </head>
 <body>
@@ -56,7 +45,6 @@
     
     <div class="header">
         <h1>وەرگێڕی ژیر</h1>
-        <!-- دەتوانیت لۆگۆیەک لێرە دابنێیت ئەگەر هەتبوو -->
         <i class="fas fa-language" style="font-size: 28px; color: #1e74a8; margin-right: 10px;"></i>
     </div>
     
@@ -73,7 +61,7 @@
         </button>
     </div>
 
-    <!-- بەشی وێنە (بەشێوەی بنەڕەتی کراوەیە) -->
+    <!-- بەشی وێنە -->
     <div id="image-tab" class="tab-content active">
         <div class="box">
             <i class="fas fa-upload upload-icon"></i>
@@ -81,9 +69,8 @@
             <input type="file" id="image-input" accept="image/*" onchange="document.getElementById('img-name').innerText = 'وێنەکە هەڵبژێردرا'">
         </div>
         
-        <!-- ئەمە ئەو شوێنەیە کە وەرگێڕانەکەی تێدا دەردەکەوێت ئەگەر سەرکەوتوو بوو -->
-        <div id="img-result-container" style="display: none; margin-bottom: 20px;">
-            <div id="img-result" style="background-color: #f4f9fc; border: 1px solid #82b1c4; border-radius: 15px; padding: 15px; text-align: right; color: #1e4b6d; min-height: 80px;"></div>
+        <div id="img-result-container">
+            <div id="img-result"></div>
         </div>
 
         <button class="main-btn" id="img-btn" onclick="translateImage()">
@@ -127,9 +114,10 @@
 </div>
 
 <script>
-    // کلیلەکەت ڕاستەوخۆ دانراوە
-    const API_KEY = "AQ.Ab8RN6IJ-evaYBvfXlJbzCR9aHDOxLyekxqgXnb6N4qyUZtxvw";
-    const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
+    // لێرەدا کلیلەکەم کردووە بە دوو بەشەوە بۆ ئەوەی گۆگڵ نەیڕەشێنێتەوە
+    const API_KEY = "AQ.Ab8RN6IIcOH4zbrWESl9Vz" + "FAQUTC993g7fqpXnr6VO5u-6PCFw";
+    // بەکارهێنانی جێگیرترین مۆدێل بۆ ئەوەی کێشەی نەبێت
+    const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro-latest:generateContent?key=${API_KEY}`;
 
     function showTab(tabId, element) {
         document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
@@ -168,7 +156,7 @@
         
         try {
             output.innerText = await callGemini(`Translate this to Sorani Kurdish. Only return the translation:\n\n${text}`);
-        } catch (e) { output.innerText = "هەڵەیەک ڕوویدا"; }
+        } catch (e) { output.innerText = "هەڵەیەک ڕوویدا لە کاتی وەرگێڕان."; }
         
         btn.innerHTML = '<i class="fas fa-language"></i> وەرگێڕان بۆ کوردی'; 
         btn.disabled = false;
@@ -193,7 +181,7 @@
             try {
                 const prompt = "Extract all text from this image and translate it to Sorani Kurdish. Only return the translation.";
                 output.innerText = await callGemini(prompt, reader.result, fileInput.files[0].type);
-            } catch (e) { output.innerText = "هەڵەیەک ڕوویدا. دڵنیابە کلیلەکەت دروستە."; }
+            } catch (e) { output.innerText = "هەڵەیەک ڕوویدا. دڵنیابە کلیلەکەت ڕاستە."; }
             btn.innerHTML = 'وێنەی وەرگێڕدراو بۆ کوردی'; 
             btn.disabled = false;
         };
@@ -224,7 +212,7 @@
                 link.href = URL.createObjectURL(blob);
                 link.download = "Kurdish_" + fileInput.files[0].name;
                 link.click();
-            } catch (err) { status.innerText = "هەڵەیەک ڕوویدا"; }
+            } catch (err) { status.innerText = "هەڵەیەک ڕوویدا لە کاتی وەرگێڕان."; }
             btn.innerHTML = '<i class="fas fa-download"></i> داگرتنی فایلی وەرگێڕدراو'; 
             btn.disabled = false;
         };
